@@ -21,16 +21,22 @@ router.get("/api/workouts", (req, res) => {
 			res.status(400).json(err);
 		});
 });
-router.put("/api/workouts/:id", (req, res) => {
-	Workoutschema.updateOne(
+router.get("/api/workouts/range", (req, res) => {
+	Workoutschema.aggregate([
 		{
-			_id: mongodb.ObjectId(req.params.id)
+			$addFields: {
+				totalDuration: { $sum: "$exercises.duration" }
+			}
 		},
 		{
-			$push: { exercises: req.body }
+			$sort: { "day": -1 }
+		},
+		{
+			$limit: 7
 		}
-	)
+	])
 		.then(dbWorkout => {
+			console.log(dbWorkout);
 			res.json(dbWorkout);
 		})
 		.catch(err => {
@@ -38,6 +44,34 @@ router.put("/api/workouts/:id", (req, res) => {
 		});
 });
 
+router.put("/api/workouts/:id", (req, res) => {
+	Workoutschema.updateOne(
+		{
+			_id: mongodb.ObjectId(req.params.id)
+		},
+		{
+			$push: { $exercises: req.body }
+		}
+	)
+		.then(dbWorkout => {
+			console.log(dbWorkout);
+			res.json(dbWorkout);
+		})
+		.catch(err => {
+			res.status(400).json(err);
+		});
+});
+
+router.post("/api/workouts", (req, res) => {
+	Workoutschema.create(req.body)
+		.then(dbWorkout => {
+			console.log(dbWorkout);
+			res.json(dbWorkout);
+		})
+		.catch(err => {
+			res.status(400).json(err);
+		});
+})
 
 
 
