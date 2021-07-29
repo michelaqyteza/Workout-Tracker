@@ -14,12 +14,13 @@ Fitness Tracker is an application that helps you create resistance and cardio ba
 - Express Js
 
 ## Screenshots 
-
+![Screenshot1]
+![Screenshot2]
+![Screenshot3]
 
 ## Application Links 
-
-
-
+- [Heroku](https://young-dawn-30081.herokuapp.com/)
+- [Github Workout Tracker](https://github.com/michelaqyteza/Workout-Tracker)
 ## Contact 
 - [GitHub](https://github.com/michelaqyteza)
 - [LinkedIn](https://www.linkedin.com/in/michela-qyteza-705154207/)
